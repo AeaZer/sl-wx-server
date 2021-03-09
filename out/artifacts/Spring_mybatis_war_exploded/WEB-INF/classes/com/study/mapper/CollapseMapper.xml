@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.dao.CollapseDao">
+    <resultMap id="findColList" type="com.study.domain.ColIndus">
+        <result property="industries_code" column="industries_code"/>
+        <result property="industries" column="industries"/>
+        <result property="daySale_1" column="daySale_1"/>
+        <result property="monthSale_1" column="monthSale_1"/>
+        <collection property="colSecs" resultMap="getSec_room"/>
+    </resultMap>
+    <resultMap id="getSec_room" type="com.study.domain.ColSec">
+        <result property="secondLevel_code" column="secondLevel_code"/>
+        <result property="secondLevel" column="secondLevel"/>
+        <result property="daySale_2" column="daySale_2"/>
+        <result property="monthSale_2" column="monthSale_2"/>
+        <collection property="colRooms" column="colRooms" ofType="com.study.domain.ColRoom">
+            <result property="saleRoom_code" column="saleRoom_code"/>
+            <result property="saleRoom" column="saleRoom"/>
+            <result property="daySale_3" column="daySale_3"/>
+            <result property="monthSale_3" column="monthSale_3"/>
+        </collection>
+    </resultMap>
+
+    <select id="findAll" resultMap="findColList" parameterType="java.lang.String">
+        SELECT
+	    industries_code,
+	    industries,
+	    secondLevel_code,
+	    secondLevel,
+	    saleRoom_code,
+	    saleRoom,
+	    SUM( achive ) AS monthSale_3
+        FROM
+	        basechart
+        WHERE
+	        actionTime &lt;= #{endTime}
+             AND actionTime &gt;= #{MO}
+        GROUP BY
+	        saleRoom_code
+    </select>
+    <select id="findDaySale" resultType="com.study.domain.ColRoom" parameterType="java.lang.String">
+        SELECT
+        saleRoom_code,
+	    SUM( achive ) AS daySale_3
+        FROM
+	        basechart
+        WHERE
+	        actionTime &lt; #{upTime}
+            AND actionTime &gt;= #{actionTime}
+        GROUP BY
+	        saleRoom_code
+    </select>
+    <select id="findIntroduce" resultType="java.lang.String">
+        SELECT
+        introduce
+        FROM
+        introduce
+        WHERE
+        actionTime &gt;= NOW()
+    </select>
+
+</mapper>

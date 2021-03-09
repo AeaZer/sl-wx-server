@@ -1,0 +1,44 @@
+.Top{
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.li-padding{
+    padding: 0rem 8rem;
+}
+.inline-flex{
+    display: flex;
+    flex-direction: row;
+}
+.top-outline{
+    border-left: 1px solid #e9eaec;
+    border-right: 1px solid #e9eaec;
+}
+.span-mid{
+    height:1rem;
+    width: 100%;
+}
+.content-part1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20.5rem;
+    width: 20%;
+    border:1px solid #e9eaec;
+}
+.content-part2{
+    height: 20.5rem;
+    width: 80%;
+}
+.div6{
+    width: 25%;
+    height: 100%;
+    font-size: 14px;
+}
+.bigMU{
+    display: block;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
