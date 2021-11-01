@@ -3,6 +3,10 @@ package com.study.API;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public class WxAPI {
     private String code;
@@ -10,6 +14,7 @@ public class WxAPI {
     private Object data;
     private float dayTotal;
     private float monthTotal;
+
 
     public float getDayTotal() {
         return dayTotal;

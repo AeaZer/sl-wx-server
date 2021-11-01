@@ -23,6 +23,10 @@
             <result property="monthSale_3" column="monthSale_3"/>
         </collection>
     </resultMap>
+    <resultMap id="findColData" type="com.study.domain.ColData">
+        <result property="dayTotal" column="daySale"/>
+        <result property="dateArr" column="actionTime"/>
+    </resultMap>
 
 
 
@@ -39,17 +43,23 @@
 	        basechart
         WHERE
 	        actionTime &lt; #{endTime}
-             AND actionTime &gt;= #{MO}
+            AND actionTime &gt;= #{endTime-7}
         GROUP BY
 			saleRoom,industries_code,
             industries,
             secondLevel_code,
             secondLevel,
 	        saleRoom_code
+	    ORDER BY
+	        industries_code,
+	        secondLevel_code,
+	        monthSale_3
+	    DESC
+
     </select>
     <select id="findDaySale" resultType="com.study.domain.ColRoom" parameterType="java.lang.String">
         SELECT
-        saleRoom_code,
+        industries_code,
 	    SUM( achive ) AS daySale_3
         FROM
 	        basechart
@@ -57,7 +67,10 @@
 	        actionTime &lt; #{upTime}
             AND actionTime &gt;= #{actionTime}
         GROUP BY
-	        saleRoom_code
+	        industries_code
+	    ORDER BY
+	        daySale_3
+	    DESC
     </select>
     <select id="findIntroduce" resultType="java.lang.String">
         SELECT
@@ -68,6 +81,21 @@
             actionTime >= SYSDATETIME()
         ORDER BY
             id
+    </select>
+    <select id="findWeekTotal" resultMap="findColData" parameterType="java.lang.String">
+       SELECT
+        actionTime,
+	    SUM( achive ) AS daySale
+        FROM
+	        basechart
+        WHERE
+	        actionTime &lt; #{upTime}
+            AND actionTime &gt;= #{actionTime - 7}
+        GROUP BY
+	        actionTime
+	    ORDER BY
+	        actionTime
+	    DESC
     </select>
     <select id="findMessage" resultType="java.lang.String">
         SELECT

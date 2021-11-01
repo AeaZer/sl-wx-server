@@ -4,6 +4,7 @@ import com.study.API.sendMessage;
 import com.study.dao.CollapseDao;
 import com.study.service.CollapseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +28,7 @@ public class cronForWX {
 
 
     @Scheduled(cron = "0 30 10-12 * * 1-6 ") // 周一至周五的10：30、11:30、12:30验证数据
-    public void taskCycle() throws IOException, ParseException {
+    public void  taskCycle() throws IOException, ParseException {
         String mess = "已推送";
         Date date=new Date();
         SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -48,6 +49,7 @@ public class cronForWX {
         Map<String,Integer> map = collapseService.changeAllUserList(sendMessage.getUserInfo());
         System.out.println(new Date()+":用户表更新成功,新增"+map.get("up")+"个，删除"+map.get("down")+"个");
     }
+
 
     /**
      *

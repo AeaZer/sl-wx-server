@@ -25,11 +25,19 @@
 
     <!--Spring 整合Mybatis框架-->
     <!--配置连接池-->
+<!--
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
         <property name="jdbcUrl" value="jdbc:sqlserver://127.0.0.1:1433;databaseName=db_sanlian"/>
         <property name="user" value="xcx"/>
         <property name="password" value="root"/>
+    </bean>
+-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+        <property name="jdbcUrl" value="jdbc:sqlserver://localhost:1433;databaseName=dbtest"/>
+        <property name="user" value="sa"/>
+        <property name="password" value="123456"/>
     </bean>
 
     <!--配置SqlSessionFactory工程-->
@@ -39,7 +47,7 @@
             <array>
                 <!--配置多个映射文件使用* 通配符-->
                 <value>classpath:com/study/mapper/*Mapper.xml</value>
-    </array>
+            </array>
         </property>
     </bean>
 
@@ -68,8 +76,6 @@
     </aop:config>
 
     <task:annotation-driven />
-
-    <context:component-scan base-package="com.study.cron" />
 
 
 </beans>

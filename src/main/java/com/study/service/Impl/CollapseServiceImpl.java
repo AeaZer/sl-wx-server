@@ -1,6 +1,7 @@
 package com.study.service.Impl;
 
 import com.study.dao.CollapseDao;
+import com.study.domain.ColData;
 import com.study.domain.ColIndus;
 import com.study.domain.ColRoom;
 import com.study.service.CollapseService;
@@ -37,6 +38,11 @@ public class CollapseServiceImpl implements CollapseService {
     }
 
     @Override
+    public List<ColData> findWeekTotal(String preTime, String date) {
+        return collapseDao.findWeekTotal(preTime,date);
+    }
+
+    @Override
     public Date findMaxDate() {
         return collapseDao.findMaxDate();
     }
@@ -62,7 +68,7 @@ public class CollapseServiceImpl implements CollapseService {
     }
 
     @Override
-    public Map<String,Integer> changeAllUserList(List<String> list) {
+    public Map<String,Integer> changeAllUserList(Set<String> set) {
         Calendar now = Calendar.getInstance();
         int year = now.get(Calendar.YEAR);
         int m = now.get(Calendar.MONTH);
@@ -73,21 +79,22 @@ public class CollapseServiceImpl implements CollapseService {
         int up = 0;
         int down = 0;
         List<String> dateBaseList = collapseDao.findAllAllowUser();
-        for (int i = 0; i < list.size(); i++) {
-            if (!dateBaseList.contains(list.get(i))){
-                collapseDao.saveAllowUser(list.get(i),new Date(now.getTimeInMillis()));
+        for (String s : set) {
+            if (!dateBaseList.contains(s)){
+                collapseDao.saveAllowUser(s,new Date(now.getTimeInMillis()));
                 up++;
             }else
                 continue;
         }
 
         for (int i = 0; i < dateBaseList.size(); i++) {
-            if(!list.contains(dateBaseList.get(i))){
+            if(!set.contains(dateBaseList.get(i))){
                 collapseDao.deleteAllowUser(dateBaseList.get(i));
                 down++;
             }else
                 continue;
         }
+
         map.put("up",up);
         map.put("down",down);
         return map;

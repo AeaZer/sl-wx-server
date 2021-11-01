@@ -295,28 +295,28 @@ public class HttpRequestUtil {
         String end = "\r\n";
         String twoHyphens = "--"; // 用于拼接
         String boundary = "*****"; // 用于拼接 可自定义
-        try {
-            URL realUrl = new URL(url);
-            // 打开和URL之间的连接
-            URLConnection con = realUrl.openConnection();
-            HttpURLConnection conn = (HttpURLConnection) con;
-            // 设置通用的请求属性
-            conn.setRequestMethod("POST"); // 设置Post请求
-            // 发送POST请求必须设置如下两行
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setUseCaches(false);
-            conn.setConnectTimeout(5 * 1000);
-            conn.setRequestProperty("connection", "Keep-Alive");
-            conn.setRequestProperty("Charset", "UTF-8");
-            conn.setRequestProperty("Content-Type",
-                    "multipart/form-data; boundary=" + boundary); // 设置内容类型
+            try {
+                URL realUrl = new URL(url);
+                // 打开和URL之间的连接
+                URLConnection con = realUrl.openConnection();
+                HttpURLConnection conn = (HttpURLConnection) con;
+                // 设置通用的请求属性
+                conn.setRequestMethod("POST"); // 设置Post请求
+                // 发送POST请求必须设置如下两行
+                conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.setUseCaches(false);
+                conn.setConnectTimeout(5 * 1000);
+                conn.setRequestProperty("connection", "Keep-Alive");
+                conn.setRequestProperty("Charset", "UTF-8");
+                conn.setRequestProperty("Content-Type",
+                        "multipart/form-data; boundary=" + boundary); // 设置内容类型
 
-            // 获取URLConnection对象对应的输出流
-            dos = new DataOutputStream(conn.getOutputStream());
-            //1、写入媒体头部分
-            StringBuilder sb = new StringBuilder();
-            sb.append(twoHyphens).append(boundary).append(end);
+                // 获取URLConnection对象对应的输出流
+                dos = new DataOutputStream(conn.getOutputStream());
+                //1、写入媒体头部分
+                StringBuilder sb = new StringBuilder();
+                sb.append(twoHyphens).append(boundary).append(end);
             sb.append("Content-Disposition: form-data;name=\"file\";filename=\"" + file.getName() + "\"").append(end);
             sb.append("Content-Type:application/octet-stream").append(end).append(end);
             byte[] head = sb.toString().getBytes("utf-8");
@@ -372,14 +372,14 @@ public class HttpRequestUtil {
 
     /**
      * 功能说明：下载素材文件
-     * 修改说明：
-     * @author AreaZer
-     * @date 2021年3月5日 上午10:54:55
-     * @param url 下载的接口地址
-     * @param param 参数
-     * @param outFileName 输出文件
-     * @return 成功返回true，失败返回false
-     * @throws IOException
+     *      * 修改说明：
+     *      * @author AreaZer
+     *      * @date 2021年3月5日 上午10:54:55
+     *      * @param url 下载的接口地址
+     *      * @param param 参数
+     *      * @param outFileName 输出文件
+     *      * @return 成功返回true，失败返回false
+     *      * @throws IOException
      */
     public static boolean downloadFile(String url, String param, String outFileName) throws IOException
     {

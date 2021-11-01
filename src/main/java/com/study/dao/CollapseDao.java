@@ -1,5 +1,6 @@
 package com.study.dao;
 
+import com.study.domain.ColData;
 import com.study.domain.ColIndus;
 import com.study.domain.ColRoom;
 import org.apache.ibatis.annotations.Mapper;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 @Mapper
@@ -36,6 +36,8 @@ public interface CollapseDao {
      * @return
      */
     List<String> findIntroduce();
+
+    List<ColData> findWeekTotal(@Param("preTime") String preTime, @Param("date")String  date);
 
     List<String> findMessage();
 

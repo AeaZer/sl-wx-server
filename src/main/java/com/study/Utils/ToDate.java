@@ -15,7 +15,7 @@ public class ToDate {
         Date sDate = c.getTime();
         String format = simpleDateFormat.format(sDate);
         return format;
-    }
+}
 
     public static String getORi(String stringDate) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -23,6 +23,17 @@ public class ToDate {
         c.setTime(simpleDateFormat.parse(stringDate));
         int day=c.get(Calendar.DAY_OF_MONTH);
         c.add(Calendar.DAY_OF_MONTH, -1*day+1);   //利用Calendar 实现 Date日期+1天
+        Date sDate = c.getTime();
+        String format = simpleDateFormat.format(sDate);
+        return format;
+    }
+
+    public static String getOneWeek(String stringDate) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        c.setTime(simpleDateFormat.parse(stringDate));
+        int day=c.get(Calendar.DAY_OF_MONTH);
+        c.add(Calendar.DAY_OF_MONTH, -7);
         Date sDate = c.getTime();
         String format = simpleDateFormat.format(sDate);
         return format;

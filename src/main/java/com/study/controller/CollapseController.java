@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/Test")
@@ -27,6 +26,41 @@ public class CollapseController {
     @Autowired
     private WxAPI wxAPI;
 
+    @RequestMapping("/findWeekTotal")
+    public void getWeekTotal(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+        //设置编码，预防编码问题
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=UTF-8");
+
+        String date = request.getParameter("date");
+        String preTime = ToDate.getOneWeek(date);
+
+
+        List<ColData> findWeekTotal = collapseService.findWeekTotal(preTime,date);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Map<String,List> map = new HashMap<>();
+        List dayTotalList = new ArrayList();
+        List dateArrList = new ArrayList();
+        for (ColData colData : findWeekTotal) {
+            dayTotalList.add(colData.getDayTotal());
+            dateArrList.add(sdf.format(colData.getDateArr()));
+        }
+        map.put("dayTotalList",dayTotalList);
+        map.put("dateArrList",dateArrList);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        wxAPI.setCode("200");
+        wxAPI.setMsg("success");
+        wxAPI.setData(map);
+        System.out.println("<--2-->");
+        String wxJson = objectMapper.writeValueAsString(wxAPI);
+        //将数据返到前端
+        response.getWriter().write(wxJson);
+        model.addAttribute("xyMap", map);
+
+    }
 
 
     @RequestMapping("/findAll")
@@ -42,10 +76,10 @@ public class CollapseController {
         List<ColIndus> all = collapseService.findAll(MO, endTime);
         List<ColRoom> daySale = collapseService.findDaySale(date,endTime);
 
-        /*
-        * 将日销售整合到月销售的结构体中
-        * */
 
+        /*
+         * 将日销售整合到月销售的结构体中
+         **/
         for (ColIndus colIndus : all) {
             for (ColSec colSec : colIndus.getColSecs()) {
                 for (ColRoom colRoom : colSec.getColRooms()) {

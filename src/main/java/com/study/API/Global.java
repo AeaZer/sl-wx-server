@@ -2,10 +2,14 @@ package com.study.API;
 
 public interface Global {
     public static final  String corpid = "wxbf4c45e3586fc037";
-    public static final  String corpsecret = "mvAdz2HKSLe_IHMsZQcrpme8VhLiOyyh1iYGoZ74NiE";
-    public static final  String agentid = "1000008";
+    public static final  String corpsecret = "N7FqVy6waX98SCdMQM13WxREyEXjsMZ7M54EvYVDFtE";
+    public static final  String agentid = "1000009";
 
     public static final  String GETUSERURl= "https://qyapi.weixin.qq.com/cgi-bin/agent/get";
+
+    public static final  String GETTAGUSER = "https://qyapi.weixin.qq.com/cgi-bin/tag/get";
+
+    public static final String GETALLPARTUSER = "https://qyapi.weixin.qq.com/cgi-bin/user/simplelist";
     /**
      * 微信公众平台，获取AccessToken的接口地址，Https请求方式：GET
      * 接口地址示例：https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=id&corpsecret=secrect
