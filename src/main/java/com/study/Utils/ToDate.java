@@ -28,14 +28,15 @@ public class ToDate {
         return format;
     }
 
-    public static String getOneWeek(String stringDate) throws ParseException {
+    public static String getOneMonth(String stringDate) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
         c.setTime(simpleDateFormat.parse(stringDate));
         int day=c.get(Calendar.DAY_OF_MONTH);
-        c.add(Calendar.DAY_OF_MONTH, -7);
+        c.add(Calendar.DAY_OF_MONTH, -30);
         Date sDate = c.getTime();
         String format = simpleDateFormat.format(sDate);
         return format;
     }
+
 }

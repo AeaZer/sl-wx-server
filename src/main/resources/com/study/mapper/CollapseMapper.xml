@@ -59,7 +59,7 @@
     </select>
     <select id="findDaySale" resultType="com.study.domain.ColRoom" parameterType="java.lang.String">
         SELECT
-        industries_code,
+        saleRoom_code,
 	    SUM( achive ) AS daySale_3
         FROM
 	        basechart
@@ -67,10 +67,7 @@
 	        actionTime &lt; #{upTime}
             AND actionTime &gt;= #{actionTime}
         GROUP BY
-	        industries_code
-	    ORDER BY
-	        daySale_3
-	    DESC
+	        saleRoom_code
     </select>
     <select id="findIntroduce" resultType="java.lang.String">
         SELECT
@@ -82,7 +79,7 @@
         ORDER BY
             id
     </select>
-    <select id="findWeekTotal" resultMap="findColData" parameterType="java.lang.String">
+    <select id="findMonth" resultMap="findColData" parameterType="java.lang.String">
        SELECT
         actionTime,
 	    SUM( achive ) AS daySale
@@ -95,7 +92,6 @@
 	        actionTime
 	    ORDER BY
 	        actionTime
-	    DESC
     </select>
     <select id="findMessage" resultType="java.lang.String">
         SELECT

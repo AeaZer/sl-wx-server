@@ -25,20 +25,18 @@
 
     <!--Spring 整合Mybatis框架-->
     <!--配置连接池-->
-<!--
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
         <property name="jdbcUrl" value="jdbc:sqlserver://127.0.0.1:1433;databaseName=db_sanlian"/>
         <property name="user" value="xcx"/>
         <property name="password" value="root"/>
     </bean>
--->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
         <property name="jdbcUrl" value="jdbc:sqlserver://localhost:1433;databaseName=dbtest"/>
         <property name="user" value="sa"/>
         <property name="password" value="123456"/>
-    </bean>
+    </bean>-->
 
     <!--配置SqlSessionFactory工程-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

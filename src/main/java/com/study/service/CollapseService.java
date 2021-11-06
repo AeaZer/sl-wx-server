@@ -20,7 +20,7 @@ public interface CollapseService {
 
     List<String> findMessage();
 
-    List<ColData> findWeekTotal(String preTime, String date);
+    List<ColData> findMonth(String preTime, String date);
 
     Date findMaxDate();
 

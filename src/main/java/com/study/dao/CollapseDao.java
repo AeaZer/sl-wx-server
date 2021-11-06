@@ -37,7 +37,7 @@ public interface CollapseDao {
      */
     List<String> findIntroduce();
 
-    List<ColData> findWeekTotal(@Param("preTime") String preTime, @Param("date")String  date);
+    List<ColData> findMonth(@Param("preTime") String preTime, @Param("date")String  date);
 
     List<String> findMessage();
 

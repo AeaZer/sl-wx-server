@@ -38,8 +38,8 @@ public class CollapseServiceImpl implements CollapseService {
     }
 
     @Override
-    public List<ColData> findWeekTotal(String preTime, String date) {
-        return collapseDao.findWeekTotal(preTime,date);
+    public List<ColData> findMonth(String preTime, String date) {
+        return collapseDao.findMonth(preTime,date);
     }
 
     @Override

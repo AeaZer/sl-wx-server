@@ -26,23 +26,23 @@ public class CollapseController {
     @Autowired
     private WxAPI wxAPI;
 
-    @RequestMapping("/findWeekTotal")
-    public void getWeekTotal(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
+    @RequestMapping("/findMonth")
+    public void getMonth(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
         //设置编码，预防编码问题
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=UTF-8");
 
         String date = request.getParameter("date");
-        String preTime = ToDate.getOneWeek(date);
+        String preTime = ToDate.getOneMonth(date);
 
 
-        List<ColData> findWeekTotal = collapseService.findWeekTotal(preTime,date);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        List<ColData> findMonth = collapseService.findMonth(preTime,date);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
 
         Map<String,List> map = new HashMap<>();
         List dayTotalList = new ArrayList();
         List dateArrList = new ArrayList();
-        for (ColData colData : findWeekTotal) {
+        for (ColData colData : findMonth) {
             dayTotalList.add(colData.getDayTotal());
             dateArrList.add(sdf.format(colData.getDateArr()));
         }
@@ -63,6 +63,7 @@ public class CollapseController {
     }
 
 
+
     @RequestMapping("/findAll")
     public void findAll(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception{
         String date = request.getParameter("date");
@@ -76,10 +77,10 @@ public class CollapseController {
         List<ColIndus> all = collapseService.findAll(MO, endTime);
         List<ColRoom> daySale = collapseService.findDaySale(date,endTime);
 
-
         /*
          * 将日销售整合到月销售的结构体中
-         **/
+         * */
+
         for (ColIndus colIndus : all) {
             for (ColSec colSec : colIndus.getColSecs()) {
                 for (ColRoom colRoom : colSec.getColRooms()) {
